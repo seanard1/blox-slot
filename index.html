@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slotting Workflow</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        body {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .instruction {
+            margin-bottom: 7px;
+            cursor: pointer;
+        }
+        .blue-underlined {
+            color: blue; 
+            text-decoration: underline; 
+        }
+        .red-warning {
+            color: red; 
+            text-decoration: bold; 
+        }
+        .red-warning-link {
+            color: red; 
+            text-decoration: underline; 
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+        }
+        .highlighted {
+            background-color: #f7f79a; /* Change the background color to your preference */
+        }
+        .fixed-container {
+            position: fixed;
+            /* top: 250px; */
+            right: 1px;
+            /* transform: translate(-50%, -50%); */
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            /* max-height: 10vh; */
+        }
+        .fixed-container img {
+            max-width: 45vw; /* 50% of the viewport width */
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Slotting <small>(<a href="https://seanard1.github.io/blox-edit/">Editing</a> || <a href="https://seanard1.github.io/blox/">Content Creation</a>)</small></h1>
+            <p>Checklist for sending copy to pagination from Blox:</p>
+            <ol id="workflow">
+            <li>Find article in hub: Go to <a href="https://admin-chicago2.bloxcms.com/desktop/#/hub.metroland.com/editorial-asset">hub</a> in Blox and search for the article you wish to send to print. You can search by <span class="blue-underlined instruction" onclick="showImage('01a-search-by-headline.png', this)">headline</span>, name of <span class="blue-underlined instruction" onclick="showImage('01b-search-by-author.png', this)">author</span> or <span class="blue-underlined instruction" onclick="showImage('01c-search-by-publication.png', this)">publication</span>.</li>
+            <li>Confirm <span class="blue-underlined instruction" onclick="showImage('02-confirm-slug.png', this)">slug</span> is present: Go to Print tab, General accordion and add a slug if one is missing. This becomes the start of the folder name in Newsgate.</li>
+            <li>Confirm a <span class="blue-underlined instruction" onclick="showImage('03-print-headline.png', this)">print headline</span> is present. Blox defaults to the Web headline if a print head is missing.</li>
+            <li>Add <span class="blue-underlined instruction" onclick="showImage('04-print-subhead.png', this)">print deck</span> (subheadline) if required.</li>
+            <li>Add <span class="blue-underlined instruction" onclick="showImage('05-jump-head-keyword.png', this)">jump keyword and jump headline</span> if required.</li>
+            <li><strong>For Staff Authors only</strong>: check to see if the reporter added their tagline to the bottom of their article in Blox. <span class="blue-underlined instruction" onclick="showImage('06-staff-authors-tagline.png', this)">Manually placed taglines</span> <i>should be italicized</i> in the final graph of the story, with a comma before the email address and a period at the end of the sentence. Blox will automatically hide this paragraph once it detects information from the Author field in the final graph, so it’s important to keep multiple taglines together rather than in separate graphs.</li>
+            <li>Check <span class="blue-underlined instruction" onclick="showImage('07-section-tags.png', this)">Section tags</span> to confirm desk: Stories marked with a Business section tag should be sent to the Business desk; if Sports, send to the Sports desk, etc.</li>
+            <li>Add <span class="blue-underlined instruction" onclick="showImage('08a-add-publication.png', this)">publication</span>: Go to Print tab, Publications accordion and hit Add, then <span class="blue-underlined instruction" onclick="showImage('08b-add-publication-filled-out.png', this)">add a Publication, Date, Edition (Desk) and Page Number</span>.</li>
+            <li>Check for <span class="blue-underlined instruction" onclick="showImage('09-photos.png', this)">photos</span>: Check Related tab, Child Assets accordion for attached photos. Photos must have unique titles (only one with same name will go to NewsGate) and should be descriptive.</li>
+            <li><span class="blue-underlined instruction" onclick="showImage('10-check-content.png', this)">Check content</span>: Pull quotes and fact boxes are in Related tab, Content accordion. Double-click on each to check its accuracy.</li>
+            <li><span class="blue-underlined instruction" onclick="showImage('10b-check-label.png', this)">Check custom label</span>: Go to Other > Custom properties. If a “special_label” is present, this becomes the article’s label in print (and web). Want to change the label for print? Add a note to the laydown document.</li>
+            <li><span class="blue-underlined instruction" onclick="showImage('11-park-in-slot.png', this)">Park in slot</span>: If you aren’t ready to send the story to pagination yet, you can reserve it for later by changing the Workflow process to slot.</li>
+            <li>Send to paginate: When ready to send story to Newsgate for the HPC to lay out, <span class="blue-underlined instruction" onclick="showImage('12a-send-to-paginate.png', this)">change Workflow process to paginate</span>, then hit <span class="blue-underlined instruction" onclick="showImage('12b-paginate-save-and-close.png', this)">save and close</span>. It is important to save and close when sending to HPC, to ensure the file makes it across the bridge.</li>
+            <li>Send article updates to pagination: Contact the HPC to see if the page has been typeset. You can resend the article with their permission. Open the article, go to Other tab, <span class="blue-underlined instruction" onclick="showImage('13a-custom properties.png', this)">Custom properties accordion</span> and <span class="blue-underlined instruction" onclick="showImage('13b-custom-properties-value-empty.png', this)">delete the value number</span> beside the last_sent_time property (do NOT delete last_sent_time). </li>
+        </div>
+        <div class="col-md-6">
+            <div class="image-container fixed-container">
+                <img id="displayed-image" src="" alt="Displayed Image" class="img-fluid">
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // function showImage(imagePath) {
+        //     var displayedImage = document.getElementById('displayed-image');
+        //     displayedImage.src = imagePath;
+        // }
+        function showImage(imagePath, listItem) {
+            var displayedImage = document.getElementById('displayed-image');
+            displayedImage.src = imagePath;
+
+            // Remove 'highlighted' class from all list items
+            var instructions = document.querySelectorAll('.instruction');
+            instructions.forEach(function(item) {
+                item.classList.remove('highlighted');
+            });
+
+            // Add 'highlighted' class to clicked list item
+            listItem.classList.add('highlighted');
+        }
+    </script>
+    
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
